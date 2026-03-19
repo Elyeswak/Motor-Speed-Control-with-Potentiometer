@@ -18,11 +18,28 @@ Turning the potentiometer knob maps the analog voltage (0–5V) to a speed range
 
 ---
 
+## What I Learned
+
+- **Stepper vs DC motors**: Unlike DC motors that spin freely with voltage, 
+  stepper motors move in discrete steps (2048 steps per revolution for the 
+  28BYJ-48). This requires precise pulse sequencing across 4 coils — the 
+  ULN2003 driver handles the current amplification since Arduino pins 
+  can't drive the coils directly.
+
+- **Analog-to-digital conversion**: The potentiometer creates a variable 
+  voltage (0-5V) that Arduino's 10-bit ADC converts to a digital value 
+  (0-1023). I then map this to the motor's usable RPM range (0-17 RPM).
+
+- **Why stepper motors matter in automation**: Stepper motors are used in 
+  CNC machines, 3D printers, and robotic positioning systems because of 
+  their precise position control — the same principles covered in 
+  industrial automation and control systems.
+
 ## Hardware
 
 | Component | Details |
 |---|---|
-| Microcontroller | Arduino Uno / Nano |
+| Microcontroller | Arduino Uno  |
 | Stepper Motor | 28BYJ-48 (5V) |
 | Driver Board | ULN2003 |
 | Potentiometer | 10kΩ |
@@ -91,7 +108,6 @@ stateDiagram-v2
     class Step running
 ```
 
-> **Note:** Render this diagram on [GitHub](https://github.com) or any Mermaid-compatible viewer to see it with colors.
 
 ### State Legend
 
@@ -106,4 +122,4 @@ stateDiagram-v2
 
 ## Dependencies
 
-- Arduino built-in **Stepper** library (no installation needed)
+- Arduino built-in **Stepper** library
